@@ -7,7 +7,6 @@ cloudinary.v2.config({
     api_secret:process.env.CLOUDINARY_API_SECRET,
 })
 
-
 // Basic health check endpoint
 app.get('/', (req, res) => {
     res.status(200).json({
@@ -35,6 +34,5 @@ app.use((err, req, res, next) => {
     });
 })
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server listening on port ${process.env.PORT}`);
-});
+export default app;
+// No app.listen() here for Vercel compatibility
