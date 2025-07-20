@@ -36,7 +36,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        'http://localhost:4000/api/v1/user/login',
+        'https://hospital-management-gkeb.vercel.app/api/v1/user/login',
         { email, password, confirmPassword, role: 'Admin' },
         {
           withCredentials: true,

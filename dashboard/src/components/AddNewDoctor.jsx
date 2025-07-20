@@ -118,7 +118,7 @@ const AddNewDoctor = () => {
       formDataToSend.append('docAvatar', docAvatar);
 
       const { data } = await axios.post(
-        'http://localhost:4000/api/v1/user/doctor/addnew',
+        'https://hospital-management-gkeb.vercel.app/api/v1/user/doctor/addnew',
         formDataToSend,
         {
           withCredentials: true,

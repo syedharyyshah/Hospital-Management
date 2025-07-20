@@ -9,13 +9,13 @@ export const Context = createContext({isAuthenticated:false});
 const AppWrapper = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/user/patient/me",
+          "https://hospital-management-gkeb.vercel.app/api/v1/user/patient/me",
           { withCredentials: true }
         );
         setIsAuthenticated(true);

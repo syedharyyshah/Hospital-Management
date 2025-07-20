@@ -4,18 +4,18 @@ import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import { GoCheckCircleFill } from 'react-icons/go';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { toast } from 'react-toastify'; // Added toast import (ensure react-toastify is installed)
+import { toast } from 'react-toastify'; 
 
 const Dashboard = () => {
   const { isAuthenticated, user } = useContext(Context);
   const [appointments, setAppointments] = useState([]);
-  const [doctors, setDoctors] = useState([]); // Added state for doctors
+  const [doctors, setDoctors] = useState([]); 
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
         const { data } = await axios.get(
-          'http://localhost:4000/api/v1/appointment/getall',
+          'https://hospital-management-gkeb.vercel.app/api/v1/appointment/getall',
           { withCredentials: true }
         );
         setAppointments(data.appointments);
@@ -27,11 +27,11 @@ const Dashboard = () => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          'http://localhost:4000/api/v1/user/doctors',
+          'https://hospital-management-gkeb.vercel.app/api/v1/user/doctors',
           { withCredentials: true }
         );
         console.log('Doctors data:', data);
-        setDoctors(data.doctors || data || []); // Try both options
+        setDoctors(data.doctors || data || []); 
       } catch (error) {
         console.error('Error fetching doctors:', {
           message: error.message,
@@ -49,7 +49,7 @@ const Dashboard = () => {
   const handleUpdateStatus = async (appointmentId, status) => {
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/v1/appointment/update/${appointmentId}`,
+        `https://hospital-management-gkeb.vercel.app/api/v1/appointment/update/${appointmentId}`,
         { status },
         { withCredentials: true }
       );

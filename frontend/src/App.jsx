@@ -11,7 +11,7 @@ import Navbar from './components/Navbar';
 import { Context } from './main';
 import axios from 'axios';
 import Footer from './components/Footer';
-import ProtectedRoute from './pages/protectedRoute'; // Import the ProtectedRoute
+import ProtectedRoute from './pages/protectedRoute'; 
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, setUser } = useContext(Context);
@@ -20,7 +20,7 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/v1/user/patient/me",
+          "https://hospital-management-gkeb.vercel.app/api/v1/user/patient/me",
           { withCredentials: true }
         );
         setIsAuthenticated(true);

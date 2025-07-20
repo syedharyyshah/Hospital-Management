@@ -40,7 +40,7 @@ const Sidebar = () => {
 
   const handleLogout = async () => {
     await axios
-      .get('http://localhost:4000/api/v1/user/admin/logout', {
+      .get('https://hospital-management-gkeb.vercel.app/api/v1/user/admin/logout', {
         withCredentials: true,
       })
       .then((res) => {
@@ -80,7 +80,7 @@ const Sidebar = () => {
         } flex-col items-center py-6 z-50 sidebar`}
         variants={sidebarVariants}
         initial="closed"
-        animate={show || window.innerWidth >= 768 ? 'open' : 'closed'} // Open on desktop or when show is true
+        animate={show || window.innerWidth >= 768 ? 'open' : 'closed'} 
       >
         <motion.div
           className="flex flex-col items-center h-full justify-center space-y-6"
