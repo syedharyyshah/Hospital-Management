@@ -31,7 +31,7 @@ const App = () => {
       }
     };
     fetchUser();
-  }, [isAuthenticated, setIsAuthenticated, setUser]);
+  }, []); // Only run once on mount
 
   return (
     <>
