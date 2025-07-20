@@ -12,9 +12,14 @@ const app = express();
 
 app.use(
     cors({
-        origin:[process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
-        methods:["GET","POST","PUT","DELETE"],
-        credentials:true,
+        origin: [
+            process.env.FRONTEND_URL,
+            process.env.DASHBOARD_URL,
+            "http://localhost:5173", // local frontend
+            "http://localhost:3000", // another common local port
+        ],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
     })
 );
 
