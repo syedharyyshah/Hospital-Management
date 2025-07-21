@@ -76,7 +76,11 @@ const AppointmentForm = () => {
       toast.success(data.message);
       navigateTo("/");
     } catch (error) {
-      toast.error(error.response.message);
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to book appointment";
+      toast.error(errorMessage);
     }
   };
 

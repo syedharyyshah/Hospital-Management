@@ -36,12 +36,6 @@ export const postAppointment = catchAsyncErrors(async(req,res,next) => {
     ){
         return next(new ErrorHandler("Please fill full form!",400));
     }
-    if (phone.length !== 11) {
-        return next(new ErrorHandler("Phone number must be exactly 11 digits!", 400));
-    }
-    if (nic.length !== 13) {
-        return next(new ErrorHandler("NIC must be exactly 13 digits!", 400));
-    }
     const isConflict = await User.find({
         firstName : doctor_firstName,
         lastName  : doctor_lastName,
