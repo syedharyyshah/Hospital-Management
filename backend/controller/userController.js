@@ -52,12 +52,9 @@ user = await User.create({
 
 
 export const login = catchAsyncErrors(async (req,res,next) => {
-    const {email,password,confirmPassword,role} = req.body;
-    if (!email || !password || !confirmPassword || !role){
+    const {email, password, role} = req.body;
+    if (!email || !password || !role){
         return next(new ErrorHandler("Please provide all details!",400));
-    }
-    if(password !== confirmPassword){
-        return next(new ErrorHandler("Password and Confirm Password do not match!", 400));
     }
     const user = await User.findOne({email}).select("+password");
     if(!user){
