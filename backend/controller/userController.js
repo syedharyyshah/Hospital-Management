@@ -52,6 +52,7 @@ user = await User.create({
 
 
 export const login = catchAsyncErrors(async (req,res,next) => {
+    console.log('LOGIN ENDPOINT HIT', req.body);
     try {
         console.log('Login attempt:', req.body);
         const {email, password, role} = req.body;
