@@ -44,7 +44,7 @@ app.use(
             } else if (!origin || allowedOrigins.includes(origin)) {
                 callback(null, true);
             } else {
-                callback(new Error('Not allowed by CORS'));
+                callback(null, false); // Block the request, don't throw
             }
         },
         methods: ["GET", "POST", "PUT", "DELETE"],
