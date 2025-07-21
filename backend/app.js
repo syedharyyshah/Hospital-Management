@@ -27,14 +27,26 @@ if (missingEnv.length > 0) {
     console.warn('Missing required environment variables:', missingEnv);
 }
 
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    process.env.DASHBOARD_URL,
+    "http://localhost:5173",
+    "http://localhost:3000",
+];
+console.log('CORS allowed origins:', allowedOrigins);
+
 app.use(
     cors({
-        origin: [
-            process.env.FRONTEND_URL,
-            process.env.DASHBOARD_URL,
-            "http://localhost:5173", // local frontend
-            "http://localhost:3000", // another common local port
-        ],
+        origin: (origin, callback) => {
+            // Allow all origins if both env vars are missing (for debugging only)
+            if (!process.env.FRONTEND_URL && !process.env.DASHBOARD_URL) {
+                callback(null, true);
+            } else if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
