@@ -52,23 +52,33 @@ user = await User.create({
 
 
 export const login = catchAsyncErrors(async (req,res,next) => {
-    const {email, password, role} = req.body;
-    if (!email || !password || !role){
-        return next(new ErrorHandler("Please provide all details!",400));
+    try {
+        console.log('Login attempt:', req.body);
+        const {email, password, role} = req.body;
+        if (!email || !password || !role){
+            console.error('Missing fields:', {email, password, role});
+            return next(new ErrorHandler("Please provide all details!",400));
+        }
+        const user = await User.findOne({email}).select("+password");
+        if(!user){
+            console.error('User not found for email:', email);
+            return next(new ErrorHandler("Invalid email or password!", 400));
+        }
+        const isPasswordMatched = await user.comparePassword(password);
+        if(!isPasswordMatched){
+            console.error('Password mismatch for user:', email);
+            return next(new ErrorHandler("Invalid email or password!", 400));  
+        }
+        if(role !== user.role){
+            console.error('Role mismatch:', {inputRole: role, userRole: user.role});
+            return next(new ErrorHandler("User with this role not found!",400));
+        }
+        console.log('Login successful for:', email);
+        generateToken(user,"User Logged In Successfully !",200,res);
+    } catch (err) {
+        console.error('Login error:', err);
+        return next(new ErrorHandler("Internal server error", 500));
     }
-    const user = await User.findOne({email}).select("+password");
-    if(!user){
-        return next(new ErrorHandler("Invalid email or password!", 400));
-    }
-    const isPasswordMatched = await user.comparePassword(password);
-    if(!isPasswordMatched){
-        return next(new ErrorHandler("Invalid email or password!", 400));  
-    }
-    if(role !== user.role){
-        return next(new ErrorHandler("User with this role not found!",400));
-    }
-    generateToken(user,"User Logged In Successfully !",200,res);
-
 });
 
 

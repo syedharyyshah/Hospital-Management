@@ -10,6 +10,23 @@ import appointmentRouter from "./router/appointmentRouter.js"
 
 const app = express();
 
+// Check for required environment variables at startup
+const requiredEnv = [
+    'MONGO_URI',
+    'JWT_SECRET_KEY',
+    'JWT_EXPIRES',
+    'COOKIE_EXPIRE',
+    'CLOUDINARY_CLOUD_NAME',
+    'CLOUDINARY_API_KEY',
+    'CLOUDINARY_API_SECRET',
+    'FRONTEND_URL',
+    'DASHBOARD_URL'
+];
+const missingEnv = requiredEnv.filter((key) => !process.env[key]);
+if (missingEnv.length > 0) {
+    console.warn('Missing required environment variables:', missingEnv);
+}
+
 app.use(
     cors({
         origin: [

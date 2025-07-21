@@ -34,9 +34,11 @@ export const errorMiddleware = (err, req, res, next) => {
             .join(" ")
         : err.message;
 
+    const isDev = process.env.NODE_ENV !== 'production';
     return res.status(err.statusCode).json({
         success: false,
-        message: errorMessage,  // Use the computed error message
+        message: errorMessage,
+        ...(isDev && { stack: err.stack })
     });
 };
 
